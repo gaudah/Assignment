@@ -25,9 +25,11 @@ ii. Post will not contain CAPITAL words, this will be verification criteria.
   npm should be installed
 
 # Commands to run the application
-  npm install
+  npm install           
+ 
   npm start or node server.js
 
 # Docker commands to build docker image and run the container
 sudo docker build -t dockerimage .
+
 sudo docker run -p 9000:9000 --net host -d --name test_endpoints dockerimage
