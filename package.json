@@ -1,0 +1,23 @@
+{
+  "name": "hapi1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "HAPI.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "dev": "nodemon --watch . clusterServer.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "inert": "^5.1.0",
+    "mongoose": "^5.1.7",
+    "lodash": "^4.17.10",
+  },
+  "devDependencies": {
+    "hapi": "^17.5.3",
+    "joi": "^13.5.2",
+    "nodemon": "^1.18.4"
+  }
+}
