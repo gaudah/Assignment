@@ -51,15 +51,12 @@ exports.signupUser = async (request, h) => {
             console.log(" Error in creation :", err_create)
             response = new Response(false, StatusCodes.INTERNAL_SERVER_ERROR, responseMsg.ERROR, err_create);
             return response
-            //response = h(Response.sendResponse(false, err_create, responseMsg.ERROR, StatusCodes.INTERNAL_SERVER_ERROR)).code(StatusCodes.INTERNAL_SERVER_ERROR);
         }
         console.log(" Success in creation :", create_user)
         response = new Response(true, StatusCodes.CREATED, responseMsg.CREATED, create_user);
-        //return response
     }
     catch (err) {
         response = new Response(false, StatusCodes.INTERNAL_SERVER_ERROR, err.message, err);
-        //return response
     }
     return response
 };
