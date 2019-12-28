@@ -1,10 +1,10 @@
 'use strict';
-
+require('app-module-path').addPath(__dirname);
 const Hapi = require('hapi');
 const mongoose = require('mongoose');
 
 const MongoDBUrl = 'mongodb://localhost:27017/innoplexus_db';
-const Routes = require('./Routes/RoutesHapi.js')
+const Routes = require('./routes/routes')
 
 const server = Hapi.server({
     port: 5000,

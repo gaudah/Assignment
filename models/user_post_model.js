@@ -15,6 +15,7 @@ const mongoose = require('mongoose'),
         access_token: { type: String, default: null }, // i.e token
         registered_on: { type: Date, default: new Date().toISOString() },
         last_logged_in: { type: Date, default: new Date().toISOString() },
+        address: {type : String}
     }),
         commentSchema = new Schema({
             comment_by : {type: String},
@@ -58,5 +59,11 @@ post.methods.validTitle = function( title ) {
 
 };
 
+user = mongoose.model('user', userSchema, 'user');
+post = mongoose.model('post', post, 'post');
 
-exports.post = mongoose.model('post', post, 'post');
+module.exports = {
+    user:user,
+    post:post
+}
+//exports.post = mongoose.model('post', post, 'post');

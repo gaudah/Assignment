@@ -1,49 +1,33 @@
-const ProdController =  require('../Factory/prod.js');
 
-const CustController =  require('../Factory/cust.js');
-
-const bookCustProduct = require('../Factory/findAvailableProd.js');
-
-const getProds = ProdController.list
-
-const prodById = ProdController.getProdById
-
-const prodInsert = ProdController.insertProd
-
-const updateProd = ProdController.updateProduct
-
-const deleteProd =  ProdController.deleteProd
-
-const getCusts = CustController.list
-
-const custById = CustController.getCustById
-
-const custInsert = CustController.insertCust
-
-const updateCust = CustController.updateCust
-
-const deleteCust = CustController.deleteCust
-
-const GetAllUpdatedProd = ProdController.getProdDetails
-
-const bookCustProd = bookCustProduct.findAvailableProd
+const userValidation = require('validations/user_validation'),
+      postValidation = require('validations/post_validation'),
+      userFactory = require('factory/user_factory'),
+      responseMsg = require('utils/response_messages'),
+      StatusCodes = require('utils/status_codes'),
+      Response = require('utils/responses')
 
 
 
-module.exports = {
-bookCustProduct,
-getProds,
-prodById,
-prodInsert,
-updateProd,
-deleteProd,
-getCusts,
-custById,
-custInsert,
-updateCust,
-deleteCust,
-GetAllUpdatedProd,
-bookCustProd,
+/**
+ *
+ * API for user signup
+ */
+
+exports.userSignup  = {
+    handler: userFactory.signupUser,
+    description: 'User signup',
+    tags: ['api', 'user'],
+    auth: false,
+    //auth : 'simple',
+    validate: userValidation.create_user,
+    plugins: {
+        'hapi-swagger': {
+            responses: {
+                '201': [],
+                '406': {
+                    'description': 'Validation Error.'
+                }
+            }
+        }
+    }
 }
-
-
