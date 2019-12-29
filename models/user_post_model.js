@@ -26,12 +26,18 @@ const mongoose = require('mongoose'),
     post = new Schema({
         title: {type : String},
             description: {type : String},
-        post_type: {type : String}, // i.e post type can be image,written blog etc.
+        post_type: {type : String}, // i.e post type can be image,url,written blog etc.
             post_by:userSchema,
+            //post_by: { "_id": mongoose.Schema.Types.ObjectId, ref: "user" },
         url: {type : String},
-            tags: [{type : String}],
+            tags: [{type : String}], // i.e user can tag another users in a post
         likes: {type:Number},
         comment: [commentSchema],
+            share_by: [{type : String}], // i.e post can be shared by user.
+            followed_by: [{type : String}], // i.e post can be follwed by user.
+            post_hidden_from: [{type : String}], // i.e post can be hidden from user
+            location: { type: String, default: "" },
+        content: {type: Buffer}
     },
     { timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } },
     {strict: false });

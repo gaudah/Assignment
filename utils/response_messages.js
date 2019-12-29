@@ -69,5 +69,9 @@ module.exports = Object.freeze({
 
     INVALID_USER_ID: "Invalid user_id length",
 
-    MANDATORY_EMAIL_USERNAME: "email or user_name must be provided"
+    MANDATORY_EMAIL_USERNAME: "email or user_name must be provided",
+
+    INVALID_URL: "Invalid url for post_type",
+
+    INVALID_PATH: "Invalid path for post_type"
 });
