@@ -14,7 +14,7 @@ const mongoose = require('mongoose'),
         is_public:{type:Boolean, default:true}, // account type can be public or private
         access_token: { type: String, default: null }, // i.e token
         registered_on: { type: Date, default: new Date().toISOString() },
-        last_logged_in: { type: Date, default: new Date().toISOString() },
+        last_logged_in: { type: Date},
         address: {type : String}
     }),
         commentSchema = new Schema({

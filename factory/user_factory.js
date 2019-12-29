@@ -212,3 +212,91 @@ exports.deleteUserInfo = async (request, h) => {
     }
     return response
 };
+
+/**
+ *
+ * @param request
+ * @param reply
+ */
+exports.loginUser = async (request, h) => {
+    let response
+    try {
+        let data = {}
+
+        if (typeof request.payload === 'string') {
+            data = JSON.parse(request.payload);
+        } else if (typeof request.payload === 'object') {
+            data = JSON.parse(JSON.stringify(request.payload));
+        } else {
+            console.log('Unknown body type' + (typeof request.payload));
+        }
+        if (!data['email'] && !data['user_name']) {
+            console.log("email or user_name must be provided ",data['email'],data['user_name'])
+            response = new Response(false, StatusCodes.BAD_REQUEST, responseMsg.MANDATORY_EMAIL_USERNAME, null);
+            return response
+        }
+
+        const [err_user, user_exist] = await userInterface.findOneUserDetails({$or:[{email: data.email},{user_name:data.user_name}]});
+        if (err_user) {
+            console.log(" Error in fetching user details :", err_user)
+            response = new Response(false, StatusCodes.UNAUTHORIZED, responseMsg.INCORRECT_CREDENTIALS, null);
+            return response
+        }
+
+        let hash_password = await bcrypt.compare(data.password,user_exist.password)
+        console.log(" Decrypted password is :",hash_password)
+        if (!hash_password) {
+            response = new Response(false, StatusCodes.UNAUTHORIZED, responseMsg.INCORRECT_CREDENTIALS, {});
+            return response
+        }
+        const [err_update_user, update_user_details] = await userInterface.findOneAndUpdateByCondition({"_id":user_exist._id},{last_logged_in: new Date()});
+
+        console.log(" Success in login :", update_user_details)
+        response = new Response(true, StatusCodes.OK, responseMsg.LOGIN, update_user_details);
+    }
+    catch (err) {
+        response = new Response(false, StatusCodes.INTERNAL_SERVER_ERROR, err.message, err);
+    }
+    return response
+};
+
+/**
+ *
+ * @param request
+ * @param reply
+ */
+exports.logoutUser = async (request, h) => {
+    let response
+    try {
+        let data = {}
+
+        if (typeof request.payload === 'string') {
+            data = JSON.parse(request.payload);
+        } else if (typeof request.payload === 'object') {
+            data = JSON.parse(JSON.stringify(request.payload));
+        } else {
+            console.log('Unknown body type' + (typeof request.payload));
+        }
+        if (!data['email'] && !data['user_name']) {
+            console.log("email or user_name must be provided ",data['email'],data['user_name'])
+            response = new Response(false, StatusCodes.BAD_REQUEST, responseMsg.MANDATORY_EMAIL_USERNAME, null);
+            return response
+        }
+
+        const [err_user, user_exist] = await userInterface.findOneUserDetails({$or:[{email: data.email},{user_name:data.user_name}]});
+        if (err_user) {
+            console.log(" Error in fetching user details :", err_user)
+            response = new Response(false, StatusCodes.UNAUTHORIZED, responseMsg.INCORRECT_CREDENTIALS, null);
+            return response
+        }
+
+        const [err_update_user, update_user_details] = await userInterface.findOneAndUpdateByCondition({"_id":user_exist._id},{access_token: null});
+
+        console.log(" Success in logout :", update_user_details)
+        response = new Response(true, StatusCodes.OK, responseMsg.LOGOUT, update_user_details);
+    }
+    catch (err) {
+        response = new Response(false, StatusCodes.INTERNAL_SERVER_ERROR, err.message, err);
+    }
+    return response
+};

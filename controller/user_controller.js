@@ -127,3 +127,51 @@ exports.deleteUserInfo  = {
         }
     }
 }
+
+/**
+ *
+ * API for user login
+ */
+
+exports.userLogin  = {
+    handler: userFactory.loginUser,
+    description: 'User login',
+    tags: ['api', 'user'],
+    auth: false,
+    //auth : 'simple',
+    validate: userValidation.login_user,
+    plugins: {
+        'hapi-swagger': {
+            responses: {
+                '201': [],
+                '406': {
+                    'description': 'Validation Error.'
+                }
+            }
+        }
+    }
+}
+
+/**
+ *
+ * API for user logout
+ */
+
+exports.userLogout  = {
+    handler: userFactory.logoutUser,
+    description: 'User logout',
+    tags: ['api', 'user'],
+    auth: false,
+    //auth : 'simple',
+    validate: userValidation.logout_user,
+    plugins: {
+        'hapi-swagger': {
+            responses: {
+                '201': [],
+                '406': {
+                    'description': 'Validation Error.'
+                }
+            }
+        }
+    }
+}

@@ -41,5 +41,18 @@ module.exports = (() => {
                 address: Joi.string().example('Xyz road,Shivajinagar, Pune 411052').description('This will be the address of user.')
             },
         },
+        login_user : {
+            payload: {
+                user_name: Joi.string().example('aishwarya_gaud').description('This will be the username'),
+                email: Joi.string().example('aishwaryagaud17@gmail.com').description('This will be the email'),
+                password: Joi.string().required().example('xyz##118989').description('This will be the password'),
+            },
+        },
+        logout_user : {
+            payload: {
+                user_name: Joi.string().example('aishwarya_gaud').description('This will be the username'),
+                email: Joi.string().example('aishwaryagaud17@gmail.com').description('This will be the email'),
+            },
+        },
     };
 })();

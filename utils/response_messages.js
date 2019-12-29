@@ -35,6 +35,8 @@ module.exports = Object.freeze({
 
     LOGIN : 'Login successful',
 
+    LOGOUT : 'Logout successful',
+
     FOUND : 'Found',
 
     ERROR : 'Error',
@@ -66,4 +68,6 @@ module.exports = Object.freeze({
     POST_CREATE_SUCCESS: "Post created successfully",
 
     INVALID_USER_ID: "Invalid user_id length",
+
+    MANDATORY_EMAIL_USERNAME: "email or user_name must be provided"
 });
