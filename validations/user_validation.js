@@ -21,7 +21,11 @@ module.exports = (() => {
         },
         get_user_info : {
             params: {
-                user_id : Joi.string().required().example('5e07a051c70f8b54dda7e3e9').description('This will be user id.')},
+                user_id : Joi.string().required().error((res) => {
+                    return {
+                        message: 'Invalid user_id length',
+                    };
+                }).example('5e07a051c70f8b54dda7e3e9').description('This will be user id.')},
         },
         update_user_info : {
             params: {

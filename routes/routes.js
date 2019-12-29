@@ -6,6 +6,7 @@ module.exports = [
     { method: 'GET', path: '/user', options: userController.getAllUserDetails },
     { method: 'GET', path: '/user/{user_id}', options: userController.getUserInfo },
     { method: 'PUT', path: '/user/{user_id}', options: userController.updateUserInfo },
+    { method: 'DELETE', path: '/user/{user_id}', options: userController.deleteUserInfo },
     {
         method: 'POST',
         path: '/signup',

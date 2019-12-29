@@ -103,3 +103,27 @@ exports.updateUserInfo  = {
         }
     }
 }
+
+/**
+ *
+ * API to delete user details
+ */
+
+exports.deleteUserInfo  = {
+    handler: userFactory.deleteUserInfo,
+    description: 'Delete user details',
+    tags: ['api', 'user'],
+    auth: false,
+    //auth : 'simple',
+    validate: userValidation.get_user_info,
+    plugins: {
+        'hapi-swagger': {
+            responses: {
+                '201': [],
+                '406': {
+                    'description': 'Validation Error.'
+                }
+            }
+        }
+    }
+}
