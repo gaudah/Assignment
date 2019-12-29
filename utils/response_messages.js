@@ -73,5 +73,7 @@ module.exports = Object.freeze({
 
     INVALID_URL: "Invalid url for post_type",
 
-    INVALID_PATH: "Invalid path for post_type"
+    INVALID_PATH: "Invalid path for post_type",
+
+    INVALID_TITLE: "Invalid title entered",
 });
