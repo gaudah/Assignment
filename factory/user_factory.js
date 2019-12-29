@@ -246,7 +246,7 @@ exports.loginUser = async (request, h) => {
         let hash_password = await bcrypt.compare(data.password,user_exist.password)
         console.log(" Decrypted password is :",hash_password)
         if (!hash_password) {
-            response = new Response(false, StatusCodes.UNAUTHORIZED, responseMsg.INCORRECT_CREDENTIALS, {});
+            response = new Response(false, StatusCodes.UNAUTHORIZED, responseMsg.INCORRECT_CREDENTIALS, null);
             return response
         }
         const [err_update_user, update_user_details] = await userInterface.findOneAndUpdateByCondition({"_id":user_exist._id},{last_logged_in: new Date()});
