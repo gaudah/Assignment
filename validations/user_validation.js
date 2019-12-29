@@ -17,6 +17,11 @@ module.exports = (() => {
                 location: Joi.string().example('Pune').description('This will be the current location of user.'),
                 is_public:Joi.boolean().example('true').description('This will be the account type of user.'),
                 address: Joi.string().example('Xyz road,Shivajinagar, Pune 411052').description('This will be the address of user.')
-            }}
+            },
+        },
+        get_user_info : {
+            params: {
+                user_id : Joi.string().required().example('5e07a051c70f8b54dda7e3e9').description('This will be user id.')},
+        },
     };
 })();

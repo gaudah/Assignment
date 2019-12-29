@@ -60,3 +60,67 @@ exports.signupUser = async (request, h) => {
     }
     return response
 };
+
+/**
+ *
+ * @param request
+ * @param reply
+ */
+exports.getAllUserDetails = async (request, h) => {
+    let response
+    try {
+
+        const [err_user, user_details] = await userInterface.findAllUsers({});
+        if (err_user) {
+            console.log(" Error in fetching user details :", err_user)
+            response = new Response(false, StatusCodes.BAD_REQUEST, err_user, err_user);
+            return response
+        }
+
+        console.log(" Success in fetching user details :", user_details)
+        response = new Response(true, StatusCodes.OK, responseMsg.FETCHED, user_details);
+    }
+    catch (err) {
+        response = new Response(false, StatusCodes.INTERNAL_SERVER_ERROR, err.message, err);
+    }
+    return response
+};
+
+/**
+ *
+ * @param request
+ * @param reply
+ */
+exports.getUserInfo = async (request, h) => {
+    let response
+    try {
+        let data = {}
+
+        if (typeof request.params === 'string') {
+            data = JSON.parse(request.params);
+        } else if (typeof request.params === 'object') {
+            data = JSON.parse(JSON.stringify(request.params));
+        } else {
+            console.log('Unknown body type' + (typeof request.params));
+        }
+
+        if (data.user_id.length !== 24) {
+            console.log(" Invalid user_id length ",data.user_id.length)
+            response = new Response(false, StatusCodes.BAD_REQUEST, responseMsg.INVALID_USER_ID, null);
+            return response
+        }
+        const [err_user, user_details] = await userInterface.findOneUserDetails({"_id":request.params.user_id});
+        if (err_user) {
+            console.log(" Error in fetching user details :", err_user)
+            response = new Response(false, StatusCodes.BAD_REQUEST, responseMsg.USER_NOT_PRESENT, {});
+            return response
+        }
+
+        console.log(" Success in fetching user details :", user_details)
+        response = new Response(true, StatusCodes.OK, responseMsg.FETCHED, user_details);
+    }
+    catch (err) {
+        response = new Response(false, StatusCodes.INTERNAL_SERVER_ERROR, err.message, err);
+    }
+    return response
+};

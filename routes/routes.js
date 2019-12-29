@@ -3,8 +3,8 @@ const postController = require('../controller/post_controller')
 const userValidation = require('validations/user_validation')
 
 module.exports = [
-    //{ method: 'GET', path: '/user', options: userController.getUserdetails },
-    //{ method: 'GET', path: '/user/{user_id}', options: issueController.getIssueInformation },
+    { method: 'GET', path: '/user', options: userController.getAllUserDetails },
+    { method: 'GET', path: '/user/{user_id}', options: userController.getUserInfo },
     {
         method: 'POST',
         path: '/signup',

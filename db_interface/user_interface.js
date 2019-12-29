@@ -29,5 +29,32 @@ const createUser = async (data) => {
 
 };
 
+const findAllUsers = async (condition) => {
+    try {
+        const check_user_exist = await model.user.find(condition);
+        return [null,check_user_exist];
+    }
+    catch (e) {
+        console.log(" Error :",e);
+        return [e];
+    }
+};
+
+const findOneUserDetails = async (condition) => {
+    try {
+        const check_user_exist = await model.user.findOne(condition);
+        if (!check_user_exist) {
+            return [responseMsg.USER_NOT_PRESENT];
+        }
+        return [null,check_user_exist];
+    }
+    catch (e) {
+        console.log(" Error :",e);
+        return [e];
+    }
+};
+
 exports.findOneUser = findOneUser;
 exports.createUser = createUser;
+exports.findAllUsers = findAllUsers;
+exports.findOneUserDetails = findOneUserDetails;

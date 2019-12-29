@@ -31,3 +31,51 @@ exports.userSignup  = {
         }
     }
 }
+
+/**
+ *
+ * API to get all user details
+ */
+
+exports.getAllUserDetails  = {
+    handler: userFactory.getAllUserDetails,
+    description: 'Get all user details',
+    tags: ['api', 'user'],
+    auth: false,
+    //auth : 'simple',
+    //validate: userValidation.create_user,
+    plugins: {
+        'hapi-swagger': {
+            responses: {
+                '201': [],
+                '406': {
+                    'description': 'Validation Error.'
+                }
+            }
+        }
+    }
+}
+
+/**
+ *
+ * API to get user details of specific user
+ */
+
+exports.getUserInfo  = {
+    handler: userFactory.getUserInfo,
+    description: 'Get user details of specific user',
+    tags: ['api', 'user'],
+    auth: false,
+    //auth : 'simple',
+    validate: userValidation.get_user_info,
+    plugins: {
+        'hapi-swagger': {
+            responses: {
+                '201': [],
+                '406': {
+                    'description': 'Validation Error.'
+                }
+            }
+        }
+    }
+}

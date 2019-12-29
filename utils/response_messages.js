@@ -31,6 +31,8 @@ module.exports = Object.freeze({
 
     UPDATED : 'Updated successfully',
 
+    FETCHED: 'Fetched successfully',
+
     LOGIN : 'Login successful',
 
     FOUND : 'Found',
@@ -63,4 +65,5 @@ module.exports = Object.freeze({
 
     POST_CREATE_SUCCESS: "Post created successfully",
 
+    INVALID_USER_ID: "user_id must be a single String of 12 bytes or a string of 24 hex characters",
 });
