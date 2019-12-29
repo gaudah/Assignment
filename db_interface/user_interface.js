@@ -56,7 +56,7 @@ const findOneUserDetails = async (condition) => {
 
 const findOneAndUpdateByCondition = async (condition, data)  => {
     try {
-        const check_user_exist = await model.user.findOneAndUpdate(condition,data);
+        const check_user_exist = await model.user.findOneAndUpdate(condition,data,{new: true});
         if (!check_user_exist) {
             return [responseMsg.USER_NOT_PRESENT];
         }
@@ -75,26 +75,30 @@ const findOneAndDeleteByCondition = async (condition) => {
             return [responseMsg.USER_NOT_PRESENT];
         }
         return [null,check_user_exist];
-        /*const check_user_exist = await model.user.remove(condition);
-        if (!check_user_exist) {
-            return [responseMsg.USER_NOT_PRESENT];
-        }
-        return [null,check_user_exist];*/
     }
     catch (e) {
         console.log(" Error :",e);
         return [e];
     }
-    /*user.remove(condition).then(success_data => {
-        success_callback(success_data);
-    }, error_data => {
-        error_callback(error_data);
-    });*/
 };
+
+const findAggregatedQueryResponse = async (aggregatedArray) => {
+    try {
+        const check_user_exist = await model.user.aggregate(aggregatedArray);
+        return [null,check_user_exist];
+    }
+    catch (e) {
+        console.log(" Error :",e);
+        return [e];
+    }
+
+};
+
 
 exports.findOneUser = findOneUser;
 exports.createUser = createUser;
 exports.findAllUsers = findAllUsers;
 exports.findOneUserDetails = findOneUserDetails;
 exports.findOneAndUpdateByCondition = findOneAndUpdateByCondition;
-exports.findOneAndDeleteByCondition = findOneAndDeleteByCondition
+exports.findOneAndDeleteByCondition = findOneAndDeleteByCondition;
+exports.findAggregatedQueryResponse = findAggregatedQueryResponse;
