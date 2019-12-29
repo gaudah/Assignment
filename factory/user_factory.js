@@ -124,3 +124,52 @@ exports.getUserInfo = async (request, h) => {
     }
     return response
 };
+
+/**
+ *
+ * @param request
+ * @param reply
+ */
+exports.updateUserInfo = async (request, h) => {
+    let response
+    try {
+        let data = {}
+
+        if (typeof request.payload === 'string') {
+            data = JSON.parse(request.payload);
+        } else if (typeof request.payload === 'object') {
+            data = JSON.parse(JSON.stringify(request.payload));
+        } else {
+            console.log('Unknown body type' + (typeof request.payload));
+        }
+
+        if (request.params.user_id.length !== 24) {
+            console.log(" Invalid user_id length ",request.params.user_id.length)
+            response = new Response(false, StatusCodes.BAD_REQUEST, responseMsg.INVALID_USER_ID, null);
+            return response
+        }
+        let data_update = {
+            first_name: data.first_name,
+            last_name: data.last_name,
+            contact_no: [data.contact_no],
+            profile_image_url: data.profile_image_url,
+            location: data.location,
+            is_public: data.is_public,
+            address: data.address
+        }
+
+        const [err_user, user_details] = await userInterface.findOneAndUpdateByCondition({"_id":request.params.user_id},data_update);
+        if (err_user) {
+            console.log(" Error in updating user details :", err_user)
+            response = new Response(false, StatusCodes.BAD_REQUEST, responseMsg.USER_NOT_PRESENT, {});
+            return response
+        }
+
+        console.log(" Success in updating user details :", user_details)
+        response = new Response(true, StatusCodes.OK, responseMsg.UPDATED, user_details);
+    }
+    catch (err) {
+        response = new Response(false, StatusCodes.INTERNAL_SERVER_ERROR, err.message, err);
+    }
+    return response
+};

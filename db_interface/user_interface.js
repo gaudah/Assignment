@@ -54,7 +54,22 @@ const findOneUserDetails = async (condition) => {
     }
 };
 
+const findOneAndUpdateByCondition = async (condition, data)  => {
+    try {
+        const check_user_exist = await model.user.findOneAndUpdate(condition,data);
+        if (!check_user_exist) {
+            return [responseMsg.USER_NOT_PRESENT];
+        }
+        return [null,check_user_exist];
+    }
+    catch (e) {
+        console.log(" Error :",e);
+        return [e];
+    }
+};
+
 exports.findOneUser = findOneUser;
 exports.createUser = createUser;
 exports.findAllUsers = findAllUsers;
 exports.findOneUserDetails = findOneUserDetails;
+exports.findOneAndUpdateByCondition = findOneAndUpdateByCondition;

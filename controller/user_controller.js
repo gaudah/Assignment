@@ -79,3 +79,27 @@ exports.getUserInfo  = {
         }
     }
 }
+
+/**
+ *
+ * API to update user details
+ */
+
+exports.updateUserInfo  = {
+    handler: userFactory.updateUserInfo,
+    description: 'Update user details',
+    tags: ['api', 'user'],
+    auth: false,
+    //auth : 'simple',
+    validate: userValidation.update_user_info,
+    plugins: {
+        'hapi-swagger': {
+            responses: {
+                '201': [],
+                '406': {
+                    'description': 'Validation Error.'
+                }
+            }
+        }
+    }
+}
