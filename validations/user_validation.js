@@ -5,9 +5,9 @@ module.exports = (() => {
 
         create_user : {
             payload: {
-                first_name: Joi.string().example('Aishwarya').description('This will be the first_name of user.'),
-                last_name: Joi.string().example('Gaud').description('This will be the last_name of user.'),
-                user_name: Joi.string().required().example('aishwarya_gaud').description('This will be the username'),
+                first_name: Joi.string().example('Pqr').description('This will be the first_name of user.'),
+                last_name: Joi.string().example('Rst').description('This will be the last_name of user.'),
+                user_name: Joi.string().required().example('xyz_pqr').description('This will be the username'),
                 email: Joi.string().required().example('aishwaryagaud17@gmail.com').description('This will be the email'),
                 password: Joi.string().required().example('xyz##118989').description('This will be the password'),
                 confirm_password: Joi.string().required().example('xyz##118989').description('This will be the confirm password'),
@@ -32,8 +32,8 @@ module.exports = (() => {
                 user_id : Joi.string().required().example('5e07a051c70f8b54dda7e3e9').description('This will be user id.')
             },
             payload: {
-                first_name: Joi.string().example('Aishwarya').description('This will be the first_name of user.'),
-                last_name: Joi.string().example('Gaud').description('This will be the last_name of user.'),
+                first_name: Joi.string().example('Pqr').description('This will be the first_name of user.'),
+                last_name: Joi.string().example('Rst').description('This will be the last_name of user.'),
                 contact_no: Joi.number().example('9096556535').description('This will be the contact number'),
                 profile_image_url: Joi.string().example('https://www.noupe.com/design/image-vector-editing/create-seo-friendly-urls-web-images-cloudinary-98839.html').description('This will be the profile image url'),
                 location: Joi.string().example('Pune').description('This will be the current location of user.'),
@@ -43,14 +43,14 @@ module.exports = (() => {
         },
         login_user : {
             payload: {
-                user_name: Joi.string().example('aishwarya_gaud').description('This will be the username'),
+                user_name: Joi.string().example('xyz_pqr').description('This will be the username'),
                 email: Joi.string().example('aishwaryagaud17@gmail.com').description('This will be the email'),
                 password: Joi.string().required().example('xyz##118989').description('This will be the password'),
             },
         },
         logout_user : {
             payload: {
-                user_name: Joi.string().example('aishwarya_gaud').description('This will be the username'),
+                user_name: Joi.string().example('xyz_pqr').description('This will be the username'),
                 email: Joi.string().example('aishwaryagaud17@gmail.com').description('This will be the email'),
             },
         },

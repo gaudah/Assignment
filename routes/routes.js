@@ -11,6 +11,7 @@ module.exports = [
     { method: 'PUT', path: '/user/{user_id}', options: userController.updateUserInfo },
     { method: 'DELETE',path: '/user/{user_id}', options: userController.deleteUserInfo },
 
+    { method: 'POST',path: '/post', options: postController.createPost},
     //{ method: 'PUT', path: '/user/{user_id}', options: userController.updateUserInfo },
     //{ method: 'DELETE', path: '/user/{user_id}', options: userController.deleteUser },
 ];
