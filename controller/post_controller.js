@@ -1,10 +1,6 @@
 
-const userValidation = require('validations/user_validation'),
-    postValidation = require('validations/post_validation'),
-    postFactory = require('factory/post_factory'),
-    responseMsg = require('utils/response_messages'),
-    StatusCodes = require('utils/status_codes'),
-    Response = require('utils/responses')
+const postValidation = require('validations/post_validation'),
+    postFactory = require('factory/post_factory');
 
 
 
@@ -14,10 +10,11 @@ const userValidation = require('validations/user_validation'),
  */
 
 exports.createPost  = {
+    //auth: 'jwt',
+    auth: false,
     handler: postFactory.createPost,
     description: 'Create Post',
-    tags: ['api', 'user'],
-    auth: false,
+    tags: ['api', 'post'],
     //auth : 'simple',
     validate: postValidation.create_post,
     plugins: {
