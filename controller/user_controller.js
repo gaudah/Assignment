@@ -1,11 +1,7 @@
 
 const userValidation = require('validations/user_validation'),
-      postValidation = require('validations/post_validation'),
       userFactory = require('factory/user_factory'),
-      responseMsg = require('utils/response_messages'),
-      StatusCodes = require('utils/status_codes'),
-      Response = require('utils/responses');
-const Joi = require('joi');
+      Joi = require('joi');
 
 
 /**

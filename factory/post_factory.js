@@ -4,7 +4,6 @@ const userInterface = require('db_interface/user_interface'),
     Response = require('utils/responses'),
     responseMsg = require('utils/response_messages'),
     StatusCodes = require('utils/status_codes'),
-    bcrypt = require('bcrypt'),
     _ = require('lodash'),
     fs = require('fs');
 
