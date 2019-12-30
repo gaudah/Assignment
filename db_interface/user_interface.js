@@ -43,6 +43,7 @@ const findAllUsers = async (condition) => {
 const findOneUserDetails = async (condition) => {
     try {
         const check_user_exist = await model.user.findOne(condition);
+        console.log("USER GET :",check_user_exist)
         if (!check_user_exist) {
             return [responseMsg.USER_NOT_PRESENT];
         }

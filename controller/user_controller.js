@@ -4,8 +4,8 @@ const userValidation = require('validations/user_validation'),
       userFactory = require('factory/user_factory'),
       responseMsg = require('utils/response_messages'),
       StatusCodes = require('utils/status_codes'),
-      Response = require('utils/responses')
-
+      Response = require('utils/responses');
+const Joi = require('joi');
 
 
 /**
@@ -14,11 +14,10 @@ const userValidation = require('validations/user_validation'),
  */
 
 exports.userSignup  = {
+    auth: false,
     handler: userFactory.signupUser,
     description: 'User signup',
     tags: ['api', 'user'],
-    auth: false,
-    //auth : 'simple',
     validate: userValidation.create_user,
     plugins: {
         'hapi-swagger': {
@@ -38,12 +37,14 @@ exports.userSignup  = {
  */
 
 exports.getAllUserDetails  = {
+    auth: 'jwt',
     handler: userFactory.getAllUserDetails,
     description: 'Get all user details',
     tags: ['api', 'user'],
-    auth: false,
-    //auth : 'simple',
-    //validate: userValidation.create_user,
+    validate: {
+        headers: Joi.object({
+        'authorization': Joi.string().required()}).options({allowUnknown: true})},
+
     plugins: {
         'hapi-swagger': {
             responses: {
@@ -62,10 +63,10 @@ exports.getAllUserDetails  = {
  */
 
 exports.getUserInfo  = {
+    auth: 'jwt',
     handler: userFactory.getUserInfo,
     description: 'Get user details of specific user',
     tags: ['api', 'user'],
-    auth: false,
     //auth : 'simple',
     validate: userValidation.get_user_info,
     plugins: {
@@ -86,10 +87,10 @@ exports.getUserInfo  = {
  */
 
 exports.updateUserInfo  = {
+    auth: 'jwt',
     handler: userFactory.updateUserInfo,
     description: 'Update user details',
     tags: ['api', 'user'],
-    auth: false,
     //auth : 'simple',
     validate: userValidation.update_user_info,
     plugins: {
@@ -110,10 +111,10 @@ exports.updateUserInfo  = {
  */
 
 exports.deleteUserInfo  = {
+    auth: 'jwt',
     handler: userFactory.deleteUserInfo,
     description: 'Delete user details',
     tags: ['api', 'user'],
-    auth: false,
     //auth : 'simple',
     validate: userValidation.get_user_info,
     plugins: {
@@ -134,10 +135,10 @@ exports.deleteUserInfo  = {
  */
 
 exports.userLogin  = {
+    auth: false,
     handler: userFactory.loginUser,
     description: 'User login',
     tags: ['api', 'user'],
-    auth: false,
     //auth : 'simple',
     validate: userValidation.login_user,
     plugins: {
@@ -158,10 +159,10 @@ exports.userLogin  = {
  */
 
 exports.userLogout  = {
+    auth: 'jwt',
     handler: userFactory.logoutUser,
     description: 'User logout',
     tags: ['api', 'user'],
-    auth: false,
     //auth : 'simple',
     validate: userValidation.logout_user,
     plugins: {

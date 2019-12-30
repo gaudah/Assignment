@@ -3,7 +3,10 @@ const userInterface = require('db_interface/user_interface'),
     Response = require('utils/responses'),
     responseMsg = require('utils/response_messages'),
     StatusCodes = require('utils/status_codes'),
-    bcrypt = require('bcrypt');
+    bcrypt = require('bcrypt'),
+    jwt = require('jsonwebtoken'),
+    moment = require('moment'),
+    constants = require('../utils/constants');
 
 /**
  *
@@ -69,7 +72,6 @@ exports.signupUser = async (request, h) => {
 exports.getAllUserDetails = async (request, h) => {
     let response
     try {
-
         const [err_user, user_details] = await userInterface.findAllUsers({});
         if (err_user) {
             console.log(" Error in fetching user details :", err_user)
@@ -81,6 +83,7 @@ exports.getAllUserDetails = async (request, h) => {
         response = new Response(true, StatusCodes.OK, responseMsg.FETCHED, user_details);
     }
     catch (err) {
+        console.log(" GET USER DETAILS: ",err)
         response = new Response(false, StatusCodes.INTERNAL_SERVER_ERROR, err.message, err);
     }
     return response
@@ -249,7 +252,11 @@ exports.loginUser = async (request, h) => {
             response = new Response(false, StatusCodes.UNAUTHORIZED, responseMsg.INCORRECT_CREDENTIALS, null);
             return response
         }
-        const [err_update_user, update_user_details] = await userInterface.findOneAndUpdateByCondition({"_id":user_exist._id},{last_logged_in: new Date()});
+        //generate token
+        const token = jwt.sign({ userId:user_exist._id  }, constants.JWT_SECRET, { expiresIn: constants.JWT_EXPIRATION_TIME });
+        const logInTime = moment(new Date()).format('YYYY-MM-DD HH:mm:ss');
+        console.log(" AUTH TOKEN :",token)
+        const [err_update_user, update_user_details] = await userInterface.findOneAndUpdateByCondition({"_id":user_exist._id},{last_logged_in:logInTime,access_token: token});
 
         console.log(" Success in login :", update_user_details)
         response = new Response(true, StatusCodes.OK, responseMsg.LOGIN, update_user_details);

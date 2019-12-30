@@ -14,10 +14,10 @@ const userValidation = require('validations/user_validation'),
  */
 
 exports.createPost  = {
+    auth: 'jwt',
     handler: postFactory.createPost,
     description: 'Create Post',
     tags: ['api', 'user'],
-    auth: false,
     //auth : 'simple',
     validate: postValidation.create_post,
     plugins: {
