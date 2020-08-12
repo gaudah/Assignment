@@ -9,7 +9,7 @@
   },
   "database": {
     "mongo": {
-      "name": "innoplexus_db",
+      "name": "test_db",
       "host": "0.0.0.0",
       "port": 27017,
       "username": "",

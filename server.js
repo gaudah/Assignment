@@ -4,7 +4,6 @@ const Hapi = require('hapi'),
       config = require('config');
       mongoose = require('mongoose'),
       MongoDBUrl = `mongodb://${config.database.mongo.host}:${config.database.mongo.port}/${config.database.mongo.name}`;
-      //MongoDBUrl = 'mongodb://localhost:27017/innoplexus_db',
       Routes = require('./routes/routes'),
       constants = require('./utils/constants'),
       secret = constants.JWT_SECRET, // Never Share This! even in private GitHub repos!
